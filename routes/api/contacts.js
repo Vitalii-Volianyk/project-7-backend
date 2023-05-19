@@ -7,7 +7,7 @@ const {
 } = require("../../middlewares/validationMiddleware");
 const {
   getController,
-  getByIdController,
+  getByCategoryController,
   deleteController,
   postController,
   putController,
@@ -19,7 +19,7 @@ const router = express.Router();
 
 router.get("/", getController);
 
-router.get("/:contactId", isValidId, getByIdController);
+router.get("/:category", getByCategoryController);
 
 router.post("/", postContactValidation, postController);
 
