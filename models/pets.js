@@ -2,17 +2,22 @@ const { Schema, model } = require("mongoose");
 
 const petSchema = new Schema(
   {
-    name: {
+    category: {
       type: String,
-      required: [true, "Set name for contact"],
+      enum: ["sell", "lost/found", "in good hands"],
     },
     favorite: {
       type: Boolean,
       default: false,
     },
-    category: {
+    country: {
       type: String,
-      enum: ["sell", "lost/found", "in good hands"],
+    },
+    age: {
+      type: String,
+    },
+    sex: {
+      type: String,
     },
   },
   { versionKey: false }
