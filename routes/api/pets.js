@@ -3,7 +3,7 @@ const express = require("express");
 const {
   getController,
   getByCategoryController,
-} = require("../../controllers/getControllers");
+} = require("../../controllers/petsControllers");
 
 const router = express.Router();
 
