@@ -4,14 +4,17 @@ const { controlWrapper } = require("../helpers/controlWrapper");
 
 const getController = async (req, res, next) => {
   const contacts = await Contact.find();
+
+  // для пошуку нам потрібно req.query(пагінація)
+
   res.json(contacts);
 };
 
-const getByIdController = async (req, res, next) => {
-  const { contactId } = req.params;
-  const findContact = await Contact.findById(contactId);
+const getByCategoryController = async (req, res, next) => {
+  const { category } = req.params;
+  const findContact = await Contact.find({ category });
 
-  if (!findContact) {
+  if (findContact.length === 0) {
     return res.json(404, { message: "Not Found" });
   }
   res.json(200, findContact);
@@ -70,7 +73,7 @@ const patchController = async (req, res, next) => {
 
 module.exports = {
   getController: controlWrapper(getController),
-  getByIdController: controlWrapper(getByIdController),
+  getByCategoryController: controlWrapper(getByCategoryController),
   postController: controlWrapper(postController),
   deleteController: controlWrapper(deleteController),
   putController: controlWrapper(putController),
