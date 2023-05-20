@@ -4,7 +4,7 @@ const petSchema = new Schema(
   {
     category: {
       type: String,
-      enum: ["sell", "lost/found", "in good hands"],
+      enum: ["sell", "lostFound", "in good hands"],
     },
     favorite: {
       type: Boolean,
@@ -19,6 +19,7 @@ const petSchema = new Schema(
     sex: {
       type: String,
     },
+    breed: {},
   },
   { versionKey: false }
 );

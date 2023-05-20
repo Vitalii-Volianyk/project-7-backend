@@ -8,7 +8,6 @@ const {
 const router = express.Router();
 
 router.get("/", getController);
-
 router.get("/:category", getByCategoryController);
 
 module.exports = router;
