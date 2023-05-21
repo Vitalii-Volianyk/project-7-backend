@@ -2,6 +2,12 @@ const { Schema, model } = require("mongoose");
 
 const petSchema = new Schema(
   {
+    title: {
+      type: String,
+    },
+    name: {
+      type: String,
+    },
     category: {
       type: String,
       enum: ["sell", "lostFound", "in good hands"],
@@ -10,7 +16,7 @@ const petSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    country: {
+    location: {
       type: String,
     },
     age: {
@@ -19,7 +25,19 @@ const petSchema = new Schema(
     sex: {
       type: String,
     },
-    breed: {},
+    breed: {
+      type: String,
+    },
+    price: {
+      type: String,
+    },
+    comments: {
+      type: String,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
   { versionKey: false }
 );
