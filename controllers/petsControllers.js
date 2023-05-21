@@ -3,11 +3,24 @@ const { Pet } = require("../models/pets");
 const { controlWrapper } = require("../helpers/controlWrapper");
 
 const getController = async (req, res, next) => {
+  const { title, category } = req.query;
+
+  if (title) {
+    const pets = await Pet.find({ title: { $regex: title, $options: "i" } });
+    console.log(pets);
+    return res.json(200, pets);
+  }
+
+  if (category) {
+    const pets = await Pet.find({
+      category: { $regex: category, $options: "i" },
+    });
+    return res.json(200, pets);
+  }
+
   const pets = await Pet.find();
 
-  // для пошуку нам потрібно req.query(пагінація)
-
-  res.json(pets);
+  res.json(200, pets);
 };
 
 const getByCategoryController = async (req, res, next) => {
