@@ -45,13 +45,24 @@ const getByCategoryController = async (req, res, next) => {
 
 const addPets = async (req, res) => {
   const { _id: owner } = req.user;
-  const result = await Pet.create({ ...req.body });
+  const result = await Pet.create({ ...req.body, owner });
   res.status(201).json(result);
+};
+
+const deletePetsId = async (req, res) => {
+  const { petId } = req.params;
+  console.log(petId);
+  const result = await Pet.findByIdAndRemove(petId);
+  if (!result) {
+    throw HttpError(404, "Not found");
+  }
+  res.json({ message: "contact deleted" });
 };
 
 module.exports = {
   getController: controlWrapper(getController),
   getByCategoryController: controlWrapper(getByCategoryController),
   addPets: controlWrapper(addPets),
+  deletePetsId: controlWrapper(deletePetsId),
   getByIdController: controlWrapper(getByIdController),
 };

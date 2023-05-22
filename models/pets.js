@@ -31,7 +31,7 @@ const petSchema = new Schema(
       type: String,
     },
     sex: {
-      type: Boolean,
+      type: String,
       enum: ["male", "female"],
     },
     breed: {
@@ -60,7 +60,7 @@ const addSchema = Joi.object({
   title: Joi.string().required(),
   name: Joi.string().required(),
   category: Joi.string().required(),
-  sex: Joi.bool().required(),
+  sex: Joi.string().required(),
   favourite: Joi.bool(),
   location: Joi.string().required(),
   price: Joi.string(),

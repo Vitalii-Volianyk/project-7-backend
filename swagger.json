@@ -29,16 +29,135 @@
     {
       "name": "user",
       "description": "Operations about user"
+    },
+    {
+      "name": "pets",
+      "description": "Operations about pets"
     }
   ],
   "paths": {
+    "/api/pets": {
+      "post": {
+        "tags": ["pets"],
+        "summary": "Creates list of pets",
+        "description": "",
+        "operationId": "",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Pets object",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PetsAddRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsAddResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "get": {
+        "tags": ["pets"],
+        "summary": "Creates list of pets",
+        "description": "",
+        "operationId": "",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Pets object",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PetsAddRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsAddResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["pets"],
+        "summary": "Delete list of pets",
+        "description": "",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "contact deleted"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/user/register": {
       "post": {
         "tags": ["user"],
         "summary": "Creates list of users with given input array",
         "description": "",
         "operationId": "createUsersWithListInput",
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Login object",
           "required": "true",
@@ -82,7 +201,6 @@
         "description": "",
         "operationId": "loginUser",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Login object",
           "required": "true",
@@ -254,6 +372,99 @@
   },
   "components": {
     "schemas": {
+      "PetsAddResponses": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "required": "true"
+          },
+          "title": {
+            "type": "string",
+            "required": "true",
+            "expamle": "Cute dog looking for a home"
+          },
+          "name": {
+            "type": "string",
+            "required": "true",
+            "expamle": "Rich"
+          },
+          "category": {
+            "type": "string",
+            "required": "true"
+          },
+          "favourite": {
+            "type": "bool",
+            "default": "false"
+          },
+          "location": {
+            "type": "string",
+            "required": "true",
+            "example": "Mariupol"
+          },
+          "age": {
+            "type": "string"
+          },
+          "sex": {
+            "type": "string"
+          },
+          "breed": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "comments": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          }
+        }
+      },
+      "PetsAddRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "required": "true",
+            "expamle": "Cute dog looking for a home"
+          },
+          "name": {
+            "type": "string",
+            "required": "true",
+            "expamle": "Rich"
+          },
+          "category": {
+            "type": "string",
+            "required": "true"
+          },
+          "favourite": {
+            "type": "bool",
+            "default": "false"
+          },
+          "location": {
+            "type": "string",
+            "required": "true",
+            "example": "Mariupol"
+          },
+          "age": {
+            "type": "string"
+          },
+          "sex": {
+            "type": "string"
+          },
+          "breed": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "comments": {
+            "type": "string"
+          }
+        }
+      },
       "UserCurrentResponse": {
         "type": "object",
         "properties": {
