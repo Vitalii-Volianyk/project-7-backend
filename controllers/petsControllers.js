@@ -43,8 +43,15 @@ const getByCategoryController = async (req, res, next) => {
   res.json(200, findPet);
 };
 
+const addPets = async (req, res) => {
+  const { _id: owner } = req.user;
+  const result = await Pet.create({ ...req.body });
+  res.status(201).json(result);
+};
+
 module.exports = {
   getController: controlWrapper(getController),
   getByCategoryController: controlWrapper(getByCategoryController),
+  addPets: controlWrapper(addPets),
   getByIdController: controlWrapper(getByIdController),
 };
