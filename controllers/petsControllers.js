@@ -1,6 +1,7 @@
 const { Pet } = require("../models/pets");
 
 const { controlWrapper } = require("../helpers/controlWrapper");
+const { HttpError } = require("../helpers/HttpError");
 
 const getController = async (req, res, next) => {
   const { title, category } = req.query;
