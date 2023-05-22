@@ -75,44 +75,6 @@
           }
         }
       },
-      "get": {
-        "tags": ["pets"],
-        "summary": "Creates list of pets",
-        "description": "",
-        "operationId": "",
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Pets object",
-          "required": "true",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PetsAddRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PetsAddResponses"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Validation Error Message",
-            "content": {}
-          },
-          "401": {
-            "description": "Not authorized",
-            "content": {}
-          }
-        }
-      },
       "delete": {
         "tags": ["pets"],
         "summary": "Delete list of pets",
