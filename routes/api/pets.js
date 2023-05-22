@@ -27,7 +27,7 @@ router.post(
   addPets
 );
 
-router.get("/:noticeId", getByIdController);
-router.get("/:category", getByCategoryController);
+router.get("/notice/:noticeId", getByIdController);
+router.get("/category/:category", getByCategoryController);
 
 module.exports = router;
