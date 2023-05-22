@@ -16,7 +16,6 @@ const {
   addPets,
   deletePetsId,
 } = require("../../controllers/petsControllers");
-const { validateBody } = require("../../helpers/validatebody");
 
 router.get("/", getController);
 
