@@ -23,6 +23,19 @@ const getController = async (req, res, next) => {
   res.json(200, pets);
 };
 
+const getByIdController = async (req, res, next) => {
+  const { noticeId } = req.params;
+
+  console.log(noticeId);
+
+  const findNotice = await Pet.findById(noticeId);
+
+  if (!findNotice) {
+    return res.json(404, { message: "Not Found" });
+  }
+  res.json(200, findNotice);
+};
+
 const getByCategoryController = async (req, res, next) => {
   const { category } = req.params;
   const findPet = await Pet.find({ category });
@@ -36,4 +49,5 @@ const getByCategoryController = async (req, res, next) => {
 module.exports = {
   getController: controlWrapper(getController),
   getByCategoryController: controlWrapper(getByCategoryController),
+  getByIdController: controlWrapper(getByIdController),
 };
