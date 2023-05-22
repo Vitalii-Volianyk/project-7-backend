@@ -19,7 +19,7 @@ const petSchema = new Schema(
       enum: ["sell", "lostFound", "in good hands"],
       required: [true, "Set category"],
     },
-    favourite: {
+    favorite: {
       type: Boolean,
       default: false,
     },

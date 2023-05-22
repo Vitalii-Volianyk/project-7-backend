@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const { authentificate } = require("../../middlewares/authentificate");
-const { isValidId } = require("../../middlewares/isValidId");
 
 const { validateBody } = require("../../helpers/validatebody");
 
@@ -17,6 +16,7 @@ const {
   addPets,
   deletePetsId,
 } = require("../../controllers/petsControllers");
+const { validateBody } = require("../../helpers/validatebody");
 
 router.get("/", getController);
 
@@ -27,8 +27,6 @@ router.post(
   validateBody(schemas.addSchema),
   addPets
 );
-
-router.delete("/:petId", authentificate, isValidId, deletePetsId);
 
 router.get("/:noticeId", getByIdController);
 router.get("/:category", getByCategoryController);
