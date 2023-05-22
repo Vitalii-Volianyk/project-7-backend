@@ -2,9 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { authentificate } = require("../../middlewares/authentificate");
-
-const { validateBody } = require("../../helpers/validatebody");
-
+const { isValidId } = require("../../helpers/isValidId");
 const { schemas } = require("../../models/pets");
 
 //const ctrl = require("../../controllers/petsControllers");
@@ -15,6 +13,7 @@ const {
   getByCategoryController,
   addPets,
 } = require("../../controllers/petsControllers");
+const { validateBody } = require("../../helpers/validatebody");
 
 router.get("/", getController);
 
@@ -26,7 +25,7 @@ router.post(
   addPets
 );
 
-router.get("/:noticeId", getByIdController);
-router.get("/:category", getByCategoryController);
+router.get("/:noticeId", isValidId, getByIdController);
+router.get("/:category", isValidId, getByCategoryController);
 
 module.exports = router;
