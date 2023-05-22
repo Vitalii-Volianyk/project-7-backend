@@ -4,19 +4,28 @@ const { User } = require("../models/users");
 
 const { controlWrapper } = require("../helpers/controlWrapper");
 const { HttpError } = require("../helpers/HttpError");
+const { nanoid } = require("nanoid");
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
   let success = false;
-  const findCommonEmail = await User.findOne({ email });
+  const user = await User.findOne({ email });
 
-  if (findCommonEmail) {
+  if (user) {
     throw HttpError(409, "Email in use");
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await User.create({
+
+  const payload = {
+    id: nanoid(),
+  };
+
+  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "23h" });
+
+  const newUser = await User.create({
     email,
+    token,
     password: hashedPassword,
   });
   success = true;
@@ -24,6 +33,7 @@ const register = async (req, res, next) => {
   res.json(201, {
     user: {
       email,
+      token,
       success,
     },
   });
@@ -59,7 +69,7 @@ const login = async (req, res, next) => {
 
 const current = (req, res, next) => {
   const user = req.user;
-  res.json(200, { _id: user._id, email: user.email, token: user.token });
+  res.json(200, { _id: user._id, email: user.email });
 };
 
 const logout = async (req, res, next) => {
