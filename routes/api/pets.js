@@ -11,22 +11,13 @@ const { schemas } = require("../../models/pets");
 
 const {
   getController,
+  getByIdController,
   getByCategoryController,
   addPets,
 } = require("../../controllers/petsControllers");
 
 router.get("/", getController);
-// router.get("/:category", getByCategoryController);
 
-// router.post(
-//   "/",
-//   authenticate,
-//   express.json(),
-//   validateBody(schemas.addSchema),
-//   ctrl.addContact
-// );
-
-//router.post("/", addPets);
 router.post(
   "/",
   authentificate,
@@ -34,5 +25,8 @@ router.post(
   validateBody(schemas.addSchema),
   addPets
 );
+
+router.get("/:noticeId", getByIdController);
+router.get("/:category", getByCategoryController);
 
 module.exports = router;
