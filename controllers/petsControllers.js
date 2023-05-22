@@ -7,7 +7,6 @@ const getController = async (req, res, next) => {
 
   if (title) {
     const pets = await Pet.find({ title: { $regex: title, $options: "i" } });
-    console.log(pets);
     return res.json(200, pets);
   }
 
@@ -25,8 +24,6 @@ const getController = async (req, res, next) => {
 
 const getByIdController = async (req, res, next) => {
   const { noticeId } = req.params;
-
-  console.log(noticeId);
 
   const findNotice = await Pet.findById(noticeId);
 
