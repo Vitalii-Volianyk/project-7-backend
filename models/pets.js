@@ -32,7 +32,7 @@ const petSchema = new Schema(
     },
     sex: {
       type: Boolean,
-      required: [true, "Set sex"],
+      enum: ["male", "female"],
     },
     breed: {
       type: String,
