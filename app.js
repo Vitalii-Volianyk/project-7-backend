@@ -6,6 +6,7 @@ const swaggerDocument = require("./swagger.json");
 require("dotenv").config();
 
 const usersRouter = require("./routes/api/users");
+const noticesRouter = require("./routes/api/notices");
 const petsRouter = require("./routes/api/pets");
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", usersRouter);
+app.use("/api/notices", noticesRouter);
 app.use("/api/pets", petsRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

@@ -31,6 +31,10 @@
       "description": "Operations about user"
     },
     {
+      "name": "notices",
+      "description": "Operations about notices"
+    },
+    {
       "name": "pets",
       "description": "Operations about pets"
     }
@@ -43,6 +47,15 @@
         "description": "",
         "operationId": "",
         "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
         "requestBody": {
           "description": "Pets object",
           "required": "true",
@@ -74,12 +87,21 @@
             "content": {}
           }
         }
-      },
+      }
+    },
+    "/api/pets/{petId}": {
       "delete": {
         "tags": ["pets"],
         "summary": "Delete list of pets",
         "description": "",
         "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
           {
             "name": "petId",
             "in": "path",
@@ -114,7 +136,100 @@
         }
       }
     },
-    "/user/register": {
+    "/api/notices/{noticeId}": {
+      "get": {
+        "tags": ["notices"],
+        "summary": "Found pets by ID",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "description": "ID pet",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsAddResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/{category}": {
+      "get": {
+        "tags": ["notices"],
+        "summary": "Found pets by CATEGORY",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "noticeId",
+            "in": "path",
+            "description": "Category pet",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "inGoodHands",
+              "enum": [
+                "sell",
+                "lostFound",
+                "inGoodHands",
+                "favoriteAdds",
+                "myAds"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsArray"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/register": {
       "post": {
         "tags": ["user"],
         "summary": "Creates list of users with given input array",
@@ -156,7 +271,7 @@
         }
       }
     },
-    "/user/login": {
+    "/users/login": {
       "post": {
         "tags": ["user"],
         "summary": "Logs user into the system",
@@ -197,7 +312,7 @@
         }
       }
     },
-    "/user/current": {
+    "/users/current": {
       "get": {
         "tags": ["user"],
         "summary": "Logs out current logged in user session",
@@ -205,13 +320,11 @@
         "operationId": "current",
         "parameters": [
           {
-            "name": "token",
+            "name": "baerer token",
             "in": "header",
             "description": "",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
+            "required": true,
+            "schema": { "type": "string" }
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -232,13 +345,20 @@
         }
       }
     },
-    "/user/logout": {
+    "/users/logout": {
       "get": {
         "tags": ["user"],
         "summary": "Logs out current logged in user session",
         "description": "",
         "operationId": "logoutUser",
         "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
           {
             "name": "_id",
             "in": "query",
@@ -267,7 +387,7 @@
         }
       }
     },
-    "/user/{username}": {
+    "/users/{username}": {
       "put": {
         "tags": ["user"],
         "summary": "Update user",
@@ -334,6 +454,59 @@
   },
   "components": {
     "schemas": {
+      "PetsArray": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "required": "true"
+            },
+            "title": {
+              "type": "string",
+              "required": "true",
+              "expamle": "Cute dog looking for a home"
+            },
+            "name": {
+              "type": "string",
+              "required": "true",
+              "expamle": "Rich"
+            },
+            "category": {
+              "type": "string",
+              "required": "true"
+            },
+            "favourite": {
+              "type": "bool",
+              "default": "false"
+            },
+            "location": {
+              "type": "string",
+              "required": "true",
+              "example": "Mariupol"
+            },
+            "age": {
+              "type": "string"
+            },
+            "sex": {
+              "type": "string"
+            },
+            "breed": {
+              "type": "string"
+            },
+            "price": {
+              "type": "string"
+            },
+            "comments": {
+              "type": "string"
+            },
+            "owner": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "PetsAddResponses": {
         "type": "object",
         "properties": {

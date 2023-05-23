@@ -7,28 +7,17 @@ const { validateBody } = require("../../helpers/validatebody");
 
 const { schemas } = require("../../models/pets");
 
-const { isValidId } = require("../../middlewares/isValidId");
-
 //const ctrl = require("../../controllers/petsControllers");
 
 const {
   getController,
   getByIdController,
   getByCategoryController,
-  addPets,
-  deletePetsId,
 } = require("../../controllers/petsControllers");
 
 router.get("/", getController);
 
-router.post(
-  "/",
-  authentificate,
-  express.json(),
-  validateBody(schemas.addSchema),
-  addPets
-);
-
-router.delete("/:petId", authentificate, isValidId, deletePetsId);
+router.get("/notice/:noticeId", getByIdController);
+router.get("/category/:category", getByCategoryController);
 
 module.exports = router;
