@@ -13,13 +13,14 @@ const { isValidId } = require("../../middlewares/isValidId");
 
 const {
   getController,
-  getByIdController,
-  getByCategoryController,
+  getBySearchController,
   addPets,
   deletePetsId,
 } = require("../../controllers/petsControllers");
 
 router.get("/", getController);
+
+router.get("/:category", getBySearchController);
 
 router.post(
   "/",
