@@ -44,6 +44,14 @@ const getByCategoryController = async (req, res, next) => {
   res.json(200, findPet);
 };
 
+const getBySearchController = async (req, res, next) => {
+  const { category } = req.params;
+  const { title } = req.query;
+
+  const findPet = await Pet.find({ category, title });
+  res.json(200, findPet);
+};
+
 const addPets = async (req, res) => {
   const { _id: owner } = req.user;
   const result = await Pet.create({ ...req.body, owner });
@@ -52,7 +60,6 @@ const addPets = async (req, res) => {
 
 const deletePetsId = async (req, res) => {
   const { petId } = req.params;
-  console.log(petId);
   const result = await Pet.findByIdAndRemove(petId);
   if (!result) {
     throw HttpError(404, "Not found");
@@ -63,6 +70,7 @@ const deletePetsId = async (req, res) => {
 module.exports = {
   getController: controlWrapper(getController),
   getByCategoryController: controlWrapper(getByCategoryController),
+  getBySearchController: controlWrapper(getBySearchController),
   addPets: controlWrapper(addPets),
   deletePetsId: controlWrapper(deletePetsId),
   getByIdController: controlWrapper(getByIdController),

@@ -7,8 +7,6 @@ const { validateBody } = require("../../helpers/validatebody");
 
 const { schemas } = require("../../models/pets");
 
-//const ctrl = require("../../controllers/petsControllers");
-
 const {
   getController,
   getByIdController,
@@ -16,7 +14,6 @@ const {
 } = require("../../controllers/petsControllers");
 
 router.get("/", getController);
-
 router.get("/notice/:noticeId", getByIdController);
 router.get("/category/:category", getByCategoryController);
 
