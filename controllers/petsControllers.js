@@ -48,7 +48,10 @@ const getBySearchController = async (req, res, next) => {
   const { category } = req.params;
   const { title } = req.query;
 
-  const findPet = await Pet.find({ category, title });
+  const findPet = await Pet.find({
+    category: { $regex: category, $options: "i" },
+    title: { $regex: title, $options: "i" },
+  });
   res.json(200, findPet);
 };
 
