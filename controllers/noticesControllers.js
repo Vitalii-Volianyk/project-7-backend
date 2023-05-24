@@ -4,20 +4,6 @@ const { controlWrapper } = require("../helpers/controlWrapper");
 const { HttpError } = require("../helpers/HttpError");
 
 const getController = async (req, res, next) => {
-  const { title, category } = req.query;
-
-  if (title) {
-    const pets = await Pet.find({ title: { $regex: title, $options: "i" } });
-    return res.json(200, pets);
-  }
-
-  if (category) {
-    const pets = await Pet.find({
-      category: { $regex: category, $options: "i" },
-    });
-    return res.json(200, pets);
-  }
-
   const pets = await Pet.find();
 
   res.json(200, pets);
