@@ -1,4 +1,4 @@
-const { Notices } = require("../models/notices");
+const { Pet } = require("../models/pets");
 
 const { controlWrapper } = require("../helpers/controlWrapper");
 const { HttpError } = require("../helpers/HttpError");
@@ -26,7 +26,7 @@ const getController = async (req, res, next) => {
 const getByIdController = async (req, res, next) => {
   const { noticeId } = req.params;
 
-  const findNotice = await Notices.findById(noticeId);
+  const findNotice = await Pet.findById(noticeId);
 
   if (!findNotice) {
     return res.json(404, { message: "Not Found" });
@@ -36,7 +36,7 @@ const getByIdController = async (req, res, next) => {
 
 const getByCategoryController = async (req, res, next) => {
   const { category } = req.params;
-  const findNotices = await Notices.find({ category });
+  const findNotices = await Pet.find({ category });
 
   if (findNotices.length === 0) {
     return res.json(404, { message: "Not Found" });
@@ -48,7 +48,7 @@ const getBySearchController = async (req, res, next) => {
   const { category } = req.params;
   const { title } = req.query;
 
-  const findPet = await Notices.find({
+  const findPet = await Pet.find({
     category: { $regex: category, $options: "i" },
     title: { $regex: title, $options: "i" },
   });
