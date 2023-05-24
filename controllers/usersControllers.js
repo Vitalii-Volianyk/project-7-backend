@@ -8,7 +8,6 @@ const { nanoid } = require("nanoid");
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
-  let success = false;
   const user = await User.findOne({ email });
 
   if (user) {
@@ -17,25 +16,22 @@ const register = async (req, res, next) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  const newUser = await User.create({
+    email,
+    password: hashedPassword,
+  });
+
   const payload = {
-    id: nanoid(),
+    id: newUser._id,
   };
 
   const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "23h" });
 
-  const newUser = await User.create({
-    email,
-    token,
-    password: hashedPassword,
-  });
-  success = true;
+  await User.findByIdAndUpdate(newUser._id, { token });
 
   res.json(201, {
-    user: {
-      email,
-      token,
-      success,
-    },
+    message: "success",
+    token,
   });
 };
 

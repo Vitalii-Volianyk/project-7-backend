@@ -8,7 +8,6 @@ const noticesSchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, "Set title"],
     },
     name: {
       type: String,
@@ -19,9 +18,8 @@ const noticesSchema = new Schema(
       enum: ["sell", "lostFound", "in good hands"],
       required: [true, "Set category"],
     },
-    favorite: {
-      type: Boolean,
-      default: false,
+    favorites: {
+      type: Array,
     },
     location: {
       type: String,
@@ -36,12 +34,14 @@ const noticesSchema = new Schema(
     },
     breed: {
       type: String,
+      required: [true, "Set breed"],
     },
     price: {
       type: String,
     },
     comments: {
       type: String,
+      required: [true, "Set comment"],
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -54,13 +54,14 @@ const noticesSchema = new Schema(
 noticesSchema.post("save", handleMongooseError);
 
 const addSchema = Joi.object({
-  title: Joi.string().required(),
+  title: Joi.string(),
   name: Joi.string().required(),
   category: Joi.string().required(),
-  favorite: Joi.bool(),
+  favorites: Joi.array(),
   location: Joi.string().required(),
   age: Joi.string().required(),
   sex: Joi.string().required(),
+  breed: Joi.string().required(),
   price: Joi.string(),
   comments: Joi.string().required(),
 });
