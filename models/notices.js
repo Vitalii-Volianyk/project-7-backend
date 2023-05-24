@@ -36,7 +36,6 @@ const noticesSchema = new Schema(
     },
     breed: {
       type: String,
-      default: "",
     },
     price: {
       type: String,

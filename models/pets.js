@@ -15,11 +15,9 @@ const petSchema = new Schema(
     },
     breed: {
       type: String,
-      default: "",
     },
     comments: {
       type: String,
-      default: "",
     },
     owner: {
       type: Schema.Types.ObjectId,
