@@ -7,22 +7,20 @@ const getController = async (req, res, next) => {
   const { title, category } = req.query;
 
   if (title) {
-    const notices = await Notices.find({
-      title: { $regex: title, $options: "i" },
-    });
-    return res.json(200, notices);
+    const pets = await Pet.find({ title: { $regex: title, $options: "i" } });
+    return res.json(200, pets);
   }
 
   if (category) {
-    const notices = await Notices.find({
+    const pets = await Pet.find({
       category: { $regex: category, $options: "i" },
     });
-    return res.json(200, notices);
+    return res.json(200, pets);
   }
 
-  const notices = await Notices.find();
+  const pets = await Pet.find();
 
-  res.json(200, notices);
+  res.json(200, pets);
 };
 
 const getByIdController = async (req, res, next) => {
@@ -46,8 +44,20 @@ const getByCategoryController = async (req, res, next) => {
   res.json(200, findNotices);
 };
 
+const getBySearchController = async (req, res, next) => {
+  const { category } = req.params;
+  const { title } = req.query;
+
+  const findPet = await Notices.find({
+    category: { $regex: category, $options: "i" },
+    title: { $regex: title, $options: "i" },
+  });
+  res.json(200, findPet);
+};
+
 module.exports = {
   getController: controlWrapper(getController),
   getByCategoryController: controlWrapper(getByCategoryController),
+  getBySearchController: controlWrapper(getBySearchController),
   getByIdController: controlWrapper(getByIdController),
 };

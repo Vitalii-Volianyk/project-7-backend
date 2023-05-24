@@ -11,16 +11,7 @@ const { isValidId } = require("../../middlewares/isValidId");
 
 //const ctrl = require("../../controllers/petsControllers");
 
-const {
-  getController,
-  getBySearchController,
-  addPets,
-  deletePetsId,
-} = require("../../controllers/petsControllers");
-
-router.get("/", getController);
-
-router.get("/:category", getBySearchController);
+const { addPets, deletePetsId } = require("../../controllers/petsControllers");
 
 router.post(
   "/",
