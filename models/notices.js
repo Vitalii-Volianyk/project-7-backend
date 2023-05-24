@@ -36,15 +36,12 @@ const noticesSchema = new Schema(
     },
     breed: {
       type: String,
-      default: "",
     },
     price: {
       type: String,
-      default: "",
     },
     comments: {
       type: String,
-      default: "",
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -60,11 +57,12 @@ const addSchema = Joi.object({
   title: Joi.string().required(),
   name: Joi.string().required(),
   category: Joi.string().required(),
-  sex: Joi.string().required(),
-  favourite: Joi.bool(),
+  favorite: Joi.bool(),
   location: Joi.string().required(),
+  age: Joi.string().required(),
+  sex: Joi.string().required(),
   price: Joi.string(),
-  comments: Joi.string(),
+  comments: Joi.string().required(),
 });
 
 const Notices = model("notices", noticesSchema);
