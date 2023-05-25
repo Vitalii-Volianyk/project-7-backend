@@ -11,7 +11,13 @@ const { isValidId } = require("../../middlewares/isValidId");
 
 //const ctrl = require("../../controllers/petsControllers");
 
-const { addPets, deletePetsId } = require("../../controllers/petsControllers");
+const {
+  getPet,
+  addPets,
+  deletePetsId,
+} = require("../../controllers/petsControllers");
+
+router.get("/", authentificate, getPet);
 
 router.post(
   "/",

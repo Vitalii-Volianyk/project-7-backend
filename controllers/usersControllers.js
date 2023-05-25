@@ -4,7 +4,6 @@ const { User } = require("../models/users");
 
 const { controlWrapper } = require("../helpers/controlWrapper");
 const { HttpError } = require("../helpers/HttpError");
-const { nanoid } = require("nanoid");
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
@@ -57,7 +56,7 @@ const login = async (req, res, next) => {
 
   await User.findByIdAndUpdate(user._id, { token });
 
-  res.json(201, {
+  res.status(201).json({
     message: "success",
     token,
   });
