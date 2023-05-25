@@ -4,7 +4,10 @@ const { controlWrapper } = require("../helpers/controlWrapper");
 const { HttpError } = require("../helpers/HttpError");
 
 const getController = async (req, res, next) => {
-  const pets = await Notices.find().select([
+  const { page = 1, limit = 10 } = req.query;
+  const skip = (page - 1) * limit;
+
+  const pets = await Notices.find({}, "", { skip, limit }).select([
     "category",
     "location",
     "age",
@@ -98,6 +101,24 @@ const addNoticeController = async (req, res, next) => {
   res.json(201, newContact);
 };
 
+const getMyAdsController = async (req, res, next) => {
+  const { _id: owner } = req.user;
+
+  const userAds = await Notices.find({ owner });
+  res.json(200, userAds);
+};
+
+const deleteNoticeController = async (req, res, next) => {
+  const { noticeId } = req.params;
+  const deleteNotice = await Notices.findByIdAndDelete(noticeId);
+
+  if (!deleteNotice) {
+    throw HttpError(404, "Not Found");
+  }
+
+  res.json(200, { message: "notice deleted" });
+};
+
 module.exports = {
   getController: controlWrapper(getController),
   getByCategoryController: controlWrapper(getByCategoryController),
@@ -106,4 +127,6 @@ module.exports = {
   patchByIdController: controlWrapper(patchByIdController),
   getFavoritesController: controlWrapper(getFavoritesController),
   addNoticeController: controlWrapper(addNoticeController),
+  getMyAdsController: controlWrapper(getMyAdsController),
+  deleteNoticeController: controlWrapper(deleteNoticeController),
 };

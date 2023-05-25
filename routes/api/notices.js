@@ -9,6 +9,8 @@ const {
   patchByIdController,
   addNoticeController,
   getFavoritesController,
+  getMyAdsController,
+  deleteNoticeController,
 } = require("../../controllers/noticesControllers");
 const { authentificate } = require("../../middlewares/authentificate");
 const { validateBody } = require("../../helpers/validatebody");
@@ -33,5 +35,8 @@ router.post(
   validateBody(schemas.addSchema),
   addNoticeController
 );
+
+router.get("/myads", authentificate, getMyAdsController);
+router.delete("/myads/:noticeId", authentificate, deleteNoticeController);
 
 module.exports = router;
