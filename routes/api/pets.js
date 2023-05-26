@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { authentificate } = require("../../middlewares/authentificate");
 
-const { validateBody } = require("../../helpers/validatebody");
+const { validateBody } = require("../../helpers/validateBody");
 
 const { schemas } = require("../../models/pets");
 
