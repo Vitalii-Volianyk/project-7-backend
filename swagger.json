@@ -136,10 +136,102 @@
         }
       }
     },
-    "/api/notices/{noticeId}": {
+    "/api/notices/": {
       "get": {
         "tags": ["notices"],
-        "summary": "Found pets by ID",
+        "summary": "Found notices with pagination",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": "1",
+              "default": "1"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": "10",
+              "default": "10"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeGetResponseArray"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["notices"],
+        "summary": "Add notices",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsArray"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/notice/{noticeId}": {
+      "get": {
+        "tags": ["notices"],
+        "summary": "Found notices by ID",
         "description": "",
         "operationId": "",
         "parameters": [
@@ -175,24 +267,17 @@
         }
       }
     },
-    "/api/notices/{category}": {
+    "/api/notices/category/{category}": {
       "get": {
         "tags": ["notices"],
-        "summary": "Found pets by CATEGORY",
+        "summary": "Found notices by CATEGORY",
         "description": "",
         "operationId": "",
         "parameters": [
           {
-            "name": "baerer token",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "noticeId",
+            "name": "noticeCategory",
             "in": "path",
-            "description": "Category pet",
+            "description": "Category noticed",
             "required": true,
             "schema": {
               "type": "string",
@@ -220,6 +305,241 @@
           },
           "400": {
             "description": "Validation Error Message",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/search/{category}": {
+      "get": {
+        "tags": ["notices"],
+        "summary": "Found notices by CATEGORY and Search",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "searchQuery",
+            "in": "query",
+            "description": "Search query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "noticeCategory",
+            "in": "path",
+            "description": "Category noticed",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "inGoodHands",
+              "enum": [
+                "sell",
+                "lostFound",
+                "inGoodHands",
+                "favoriteAdds",
+                "myAds"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsArray"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/favorite/{noticeId}": {
+      "patch": {
+        "tags": ["notices"],
+        "summary": "Add notices to favorite",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "noticeId",
+            "in": "path",
+            "description": "ID notices",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Is not valid Id",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/favorites/": {
+      "get": {
+        "tags": ["notices"],
+        "summary": "Get notices avorite",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeGetResponseArray"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/myads": {
+      "get": {
+        "tags": ["notices"],
+        "summary": "Get my ads",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeGetResponseArray"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/myads/{noticeId}": {
+      "delete": {
+        "tags": ["notices"],
+        "summary": "Delete my ads",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "deleteId",
+            "in": "path",
+            "description": "ID myPet",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "contact deleted"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
             "content": {}
           },
           "404": {
@@ -454,6 +774,29 @@
   },
   "components": {
     "schemas": {
+      "NoticeGetResponseArray": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "required": "true"
+            },
+            "location": {
+              "type": "string",
+              "required": "true",
+              "example": "Mariupol"
+            },
+            "age": {
+              "type": "string"
+            },
+            "sex": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "PetsArray": {
         "type": "array",
         "items": {
@@ -477,9 +820,11 @@
               "type": "string",
               "required": "true"
             },
-            "favourite": {
-              "type": "bool",
-              "default": "false"
+            "favorite": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "location": {
               "type": "string",
@@ -528,9 +873,12 @@
             "type": "string",
             "required": "true"
           },
-          "favourite": {
-            "type": "bool",
-            "default": "false"
+          "favorite": {
+            "type": "array",
+            "default": "false",
+            "items": {
+              "type": "string"
+            }
           },
           "location": {
             "type": "string",
@@ -574,9 +922,12 @@
             "type": "string",
             "required": "true"
           },
-          "favourite": {
-            "type": "bool",
-            "default": "false"
+          "favorite": {
+            "type": "array",
+            "default": "false",
+            "items": {
+              "type": "string"
+            }
           },
           "location": {
             "type": "string",
