@@ -58,11 +58,17 @@ const login = async (req, res, next) => {
 
   const updateUser = await User.findByIdAndUpdate(user._id, { token });
 
-  const checkValue = updateUser.name ?? updateUser.email;
+  if (updateUser.name) {
+    return res.status(201).json({
+      message: "success",
+      name: updateUser.name,
+      token,
+    });
+  }
 
   res.status(201).json({
     message: "success",
-    user: checkValue,
+    email: updateUser.email,
     token,
   });
 };
