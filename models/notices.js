@@ -15,7 +15,7 @@ const noticesSchema = new Schema(
     },
     category: {
       type: String,
-      enum: ["sell", "lostFound", "in good hands"],
+      enum: ["sell", "lostFound", "inGoodHands"],
       required: [true, "Set category"],
     },
     favorites: {
