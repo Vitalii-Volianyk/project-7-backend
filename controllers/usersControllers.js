@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
 const { User } = require("../models/users");
 
 const { controlWrapper } = require("../helpers/controlWrapper");
@@ -75,9 +76,39 @@ const logout = async (req, res, next) => {
   res.json(204, { message: "Logout sucess" });
 };
 
+const changeData = async (req, res, next) => {
+  const { _id } = req.user;
+  const { name, email, birthday, phone, city } = req.body;
+  const data = { name, email, birthday, phone, city };
+
+  const userData = await User.findByIdAndUpdate(
+    _id,
+    {
+      $set: data,
+    },
+    { new: true }
+  ).select(["email", "name", "phone", "birthday", "city"]);
+
+  res.json(201, userData);
+};
+
+const updateAvatar = async (req, res) => {
+  const { _id } = req.user;
+  const { path: avatarURL } = req.file;
+
+  const newAvatar = await User.findByIdAndUpdate(
+    _id,
+    { avatarURL },
+    { new: true }
+  );
+  res.json(201, newAvatar);
+};
+
 module.exports = {
   register: controlWrapper(register),
   login: controlWrapper(login),
   current: controlWrapper(current),
   logout: controlWrapper(logout),
+  changeData: controlWrapper(changeData),
+  updateAvatar: controlWrapper(updateAvatar),
 };

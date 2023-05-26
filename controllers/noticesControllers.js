@@ -95,10 +95,14 @@ const getFavoritesController = async (req, res, next) => {
 };
 
 const addNoticeController = async (req, res, next) => {
-  const { _id: owner } = req.user;
-  const newContact = await Notices.create({ ...req.body, owner });
+  const owner = req.user.id;
+  const noticeData = req.body;
+  const data = !!req.file
+    ? { avatarURL: req.file.path, owner, ...noticeData }
+    : { owner, ...noticeData };
 
-  res.json(201, newContact);
+  const newNotice = await Notices.create(data);
+  res.json(201, newNotice);
 };
 
 const getMyAdsController = async (req, res, next) => {

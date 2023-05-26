@@ -13,20 +13,21 @@ const { isValidId } = require("../../middlewares/isValidId");
 
 const {
   getPet,
-  addPets,
+  addPet,
   deletePetsId,
 } = require("../../controllers/petsControllers");
+const uploadCloud = require("../../middlewares/upload");
 
 router.get("/", authentificate, getPet);
+
+router.delete("/:petId", authentificate, isValidId, deletePetsId);
 
 router.post(
   "/",
   authentificate,
-  express.json(),
   validateBody(schemas.addSchema),
-  addPets
+  uploadCloud.single("image"),
+  addPet
 );
-
-router.delete("/:petId", authentificate, isValidId, deletePetsId);
 
 module.exports = router;
