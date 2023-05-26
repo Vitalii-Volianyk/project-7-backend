@@ -38,6 +38,10 @@ const getByIdController = async (req, res, next) => {
 
   const findUser = await User.findById(owner).select(["email", "phone"]);
 
+  if (!findUser) {
+    return res.json(200, findNotice);
+  }
+
   const { email, phone } = findUser;
 
   const result = {
