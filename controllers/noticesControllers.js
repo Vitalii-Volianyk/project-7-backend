@@ -1,4 +1,5 @@
 const { Notices } = require("../models/notices");
+const { User } = require("../models/users");
 
 const { controlWrapper } = require("../helpers/controlWrapper");
 const { HttpError } = require("../helpers/HttpError");
@@ -23,15 +24,34 @@ const getByIdController = async (req, res, next) => {
     "category",
     "name",
     "location",
-    "age",
+    "birthday",
     "sex",
+    "breed",
+    "owner",
   ]);
 
   if (!findNotice) {
     return res.json(404, { message: "Not Found" });
   }
 
-  res.json(200, findNotice);
+  const { category, name, location, birthday, sex, breed, owner } = findNotice;
+
+  const findUser = await User.findById(owner).select(["email", "phone"]);
+
+  const { email, phone } = findUser;
+
+  const result = {
+    category,
+    name,
+    location,
+    birthday,
+    sex,
+    breed,
+    email,
+    phone,
+  };
+
+  res.json(200, result);
 };
 
 const getByCategoryController = async (req, res, next) => {
