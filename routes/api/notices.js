@@ -13,7 +13,7 @@ const {
   deleteNoticeController,
 } = require("../../controllers/noticesControllers");
 const { authentificate } = require("../../middlewares/authentificate");
-const { validateBody } = require("../../helpers/validatebody");
+const { validateBody } = require("../../helpers/validateBody");
 const { schemas } = require("../../models/notices");
 const { isValidId } = require("../../middlewares/isValidId");
 const uploadCloud = require("../../middlewares/upload");
