@@ -25,7 +25,7 @@ const noticesSchema = new Schema(
       type: String,
       required: [true, "Set location"],
     },
-    age: {
+    birthday: {
       type: String,
     },
     sex: {
@@ -63,7 +63,7 @@ const addSchema = Joi.object({
   category: Joi.string().required(),
   favorites: Joi.array(),
   location: Joi.string().required(),
-  age: Joi.string().required(),
+  birthday: Joi.string().required(),
   sex: Joi.string().required(),
   breed: Joi.string().required(),
   price: Joi.string(),
