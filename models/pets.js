@@ -19,6 +19,10 @@ const petSchema = new Schema(
     comments: {
       type: String,
     },
+    avatarURL: {
+      type: String,
+      default: null,
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",

@@ -9,10 +9,15 @@ const getPet = async (req, res) => {
   res.json(200, findPet);
 };
 
-const addPets = async (req, res) => {
-  const { _id: owner } = req.user;
-  const result = await Pet.create({ ...req.body, owner });
-  res.status(201).json(result);
+const addPet = async (req, res) => {
+  const owner = req.user.id;
+  const petData = req.body;
+  const data = !!req.file
+    ? { avatarURL: req.file.path, owner, ...petData }
+    : { owner, ...petData };
+
+  const newPet = await Pet.create(data);
+  res.json(201, newPet);
 };
 
 const deletePetsId = async (req, res) => {
@@ -25,7 +30,7 @@ const deletePetsId = async (req, res) => {
 };
 
 module.exports = {
-  addPets: controlWrapper(addPets),
+  addPet: controlWrapper(addPet),
   deletePetsId: controlWrapper(deletePetsId),
   getPet: controlWrapper(getPet),
 };

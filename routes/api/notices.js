@@ -16,6 +16,7 @@ const { authentificate } = require("../../middlewares/authentificate");
 const { validateBody } = require("../../helpers/validatebody");
 const { schemas } = require("../../models/notices");
 const { isValidId } = require("../../middlewares/isValidId");
+const uploadCloud = require("../../middlewares/upload");
 
 router.get("/", getController);
 router.get("/notice/:noticeId", getByIdController);
@@ -33,6 +34,7 @@ router.post(
   "/",
   authentificate,
   validateBody(schemas.addSchema),
+  uploadCloud.single("image"),
   addNoticeController
 );
 
