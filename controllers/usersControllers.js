@@ -27,10 +27,11 @@ const register = async (req, res, next) => {
 
   const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "23h" });
 
-  await User.findByIdAndUpdate(newUser._id, { token });
+  const updateUser = await User.findByIdAndUpdate(newUser._id, { token });
 
   res.json(201, {
     message: "success",
+    email: updateUser.email,
     token,
   });
 };
@@ -55,10 +56,13 @@ const login = async (req, res, next) => {
 
   const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "23h" });
 
-  await User.findByIdAndUpdate(user._id, { token });
+  const updateUser = await User.findByIdAndUpdate(user._id, { token });
+
+  const checkValue = updateUser.name ?? updateUser.email;
 
   res.status(201).json({
     message: "success",
+    user: checkValue,
     token,
   });
 };
