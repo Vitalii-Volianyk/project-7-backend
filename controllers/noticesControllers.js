@@ -7,19 +7,25 @@ const getController = async (req, res, next) => {
   const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
 
-  const pets = await Notices.find({}, "", { skip, limit }).select([
+  const notices = await Notices.find({}, "", { skip, limit }).select([
     "category",
     "location",
     "age",
     "sex",
   ]);
-  res.json(200, pets);
+  res.json(200, notices);
 };
 
 const getByIdController = async (req, res, next) => {
   const { noticeId } = req.params;
 
-  const findNotice = await Notices.findById(noticeId);
+  const findNotice = await Notices.findById(noticeId).select([
+    "category",
+    "name",
+    "location",
+    "age",
+    "sex",
+  ]);
 
   if (!findNotice) {
     return res.json(404, { message: "Not Found" });

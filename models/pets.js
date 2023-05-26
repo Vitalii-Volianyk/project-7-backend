@@ -10,7 +10,7 @@ const petSchema = new Schema(
       type: String,
       required: [true, "Set name"],
     },
-    age: {
+    birthday: {
       type: String,
     },
     breed: {
@@ -35,7 +35,7 @@ petSchema.post("save", handleMongooseError);
 
 const addSchema = Joi.object({
   name: Joi.string().required(),
-  age: Joi.string().required(),
+  birthday: Joi.string().required(),
   breed: Joi.string().required(),
   comments: Joi.string().required(),
 });
