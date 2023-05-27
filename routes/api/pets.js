@@ -20,7 +20,7 @@ const uploadCloud = require("../../middlewares/upload");
 
 router.get("/", authentificate, getPet);
 
-router.delete("/:petId", authentificate, isValidId, deletePetsId);
+router.delete("/:petId", isValidId, authentificate, deletePetsId);
 
 router.post(
   "/",
