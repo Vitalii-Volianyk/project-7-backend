@@ -78,8 +78,9 @@ const login = async (req, res, next) => {
 };
 
 const current = (req, res, next) => {
-  const user = req.user;
-  res.json(200, { _id: user._id, email: user.email });
+  const { name, email, birthday, phone, city } = req.user;
+  const userData = { name, email, birthday, phone, city };
+  res.json(200, userData);
 };
 
 const logout = async (req, res, next) => {

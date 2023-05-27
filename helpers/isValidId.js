@@ -1,10 +1,12 @@
 const { isValidObjectId } = require("mongoose");
 
 const isValidId = (req, res, next) => {
-  const { noticeId } = req.params;
+  const { petId, noticeId } = req.params;
 
-  if (!isValidObjectId(noticeId)) {
-    next(res.json(400, { message: `${noticeId} is not valid id` }));
+  const checkValue = petId ?? noticeId;
+
+  if (!isValidObjectId(checkValue)) {
+    next(res.json(400, { message: `${checkValue} is not valid id` }));
   }
 
   next();
