@@ -43,6 +43,11 @@ router.post(
 
 router.get("/myads", authentificate, getMyAdsController);
 router.get("/myads/search/:title", authentificate, getAdBySearch);
-router.delete("/myads/:noticeId", authentificate, deleteNoticeController);
+router.delete(
+  "/myads/:noticeId",
+  isValidId,
+  authentificate,
+  deleteNoticeController
+);
 
 module.exports = router;
