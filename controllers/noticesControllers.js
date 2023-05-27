@@ -9,6 +9,7 @@ const getController = async (req, res, next) => {
   const skip = (page - 1) * limit;
 
   const notices = await Notices.find({}, "", { skip, limit }).select([
+    "title",
     "category",
     "location",
     "age",
@@ -116,6 +117,7 @@ const getFavoritesController = async (req, res, next) => {
   const { _id } = req.user;
 
   const noticies = await Notices.find({ favorites: { $in: [_id] } }).select([
+    "title",
     "category",
     "location",
     "age",
@@ -153,6 +155,27 @@ const deleteNoticeController = async (req, res, next) => {
   res.json(200, { message: "notice deleted" });
 };
 
+const getAdBySearch = async (req, res) => {
+  const { title } = req.params;
+  const { _id: owner } = req.user;
+  const findNotices = await Notices.find({
+    owner,
+    title: { $regex: title, $options: "i" },
+  }).select(["title", "category", "location", "age", "sex"]);
+  res.json(200, findNotices);
+};
+
+const getFavoriteBySearch = async (req, res) => {
+  const { title } = req.params;
+  const { _id } = req.user;
+
+  const findNotices = await Notices.find({
+    favorites: { $in: [_id] },
+    title: { $regex: title, $options: "i" },
+  }).select(["title", "category", "location", "age", "sex"]);
+  res.json(200, findNotices);
+};
+
 module.exports = {
   getController: controlWrapper(getController),
   getByCategoryController: controlWrapper(getByCategoryController),
@@ -163,4 +186,6 @@ module.exports = {
   addNoticeController: controlWrapper(addNoticeController),
   getMyAdsController: controlWrapper(getMyAdsController),
   deleteNoticeController: controlWrapper(deleteNoticeController),
+  getAdBySearch: controlWrapper(getAdBySearch),
+  getFavoriteBySearch: controlWrapper(getFavoriteBySearch),
 };

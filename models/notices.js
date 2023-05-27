@@ -8,6 +8,7 @@ const noticesSchema = new Schema(
   {
     title: {
       type: String,
+      required: [true, "Set title"],
     },
     name: {
       type: String,
@@ -58,7 +59,7 @@ const noticesSchema = new Schema(
 noticesSchema.post("save", handleMongooseError);
 
 const addSchema = Joi.object({
-  title: Joi.string(),
+  title: Joi.string().required(),
   name: Joi.string().required(),
   category: Joi.string().required(),
   favorites: Joi.array(),

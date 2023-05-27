@@ -11,6 +11,8 @@ const {
   getFavoritesController,
   getMyAdsController,
   deleteNoticeController,
+  getAdBySearch,
+  getFavoriteBySearch,
 } = require("../../controllers/noticesControllers");
 const { authentificate } = require("../../middlewares/authentificate");
 const { validateBody } = require("../../helpers/validateBody");
@@ -29,6 +31,7 @@ router.patch(
   patchByIdController
 );
 router.get("/favorites", authentificate, getFavoritesController);
+router.get("/favorites/search/:title", authentificate, getFavoriteBySearch);
 
 router.post(
   "/",
@@ -39,6 +42,7 @@ router.post(
 );
 
 router.get("/myads", authentificate, getMyAdsController);
+router.get("/myads/search/:title", authentificate, getAdBySearch);
 router.delete("/myads/:noticeId", authentificate, deleteNoticeController);
 
 module.exports = router;
