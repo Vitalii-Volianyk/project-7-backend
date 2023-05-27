@@ -12,8 +12,10 @@ const getController = async (req, res, next) => {
     "title",
     "category",
     "location",
-    "age",
+    "birthday",
     "sex",
+    "price",
+    "avatarURL",
   ]);
   res.json(200, notices);
 };
@@ -120,7 +122,7 @@ const getFavoritesController = async (req, res, next) => {
     "title",
     "category",
     "location",
-    "age",
+    "birthday",
     "sex",
   ]);
   res.json(200, noticies);
@@ -161,7 +163,7 @@ const getAdBySearch = async (req, res) => {
   const findNotices = await Notices.find({
     owner,
     title: { $regex: title, $options: "i" },
-  }).select(["title", "category", "location", "age", "sex"]);
+  }).select(["title", "category", "location", "birthday", "sex"]);
   res.json(200, findNotices);
 };
 
@@ -172,7 +174,7 @@ const getFavoriteBySearch = async (req, res) => {
   const findNotices = await Notices.find({
     favorites: { $in: [_id] },
     title: { $regex: title, $options: "i" },
-  }).select(["title", "category", "location", "age", "sex"]);
+  }).select(["title", "category", "location", "birthday", "sex"]);
   res.json(200, findNotices);
 };
 
