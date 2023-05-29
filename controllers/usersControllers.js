@@ -81,8 +81,8 @@ const login = async (req, res, next) => {
 };
 
 const current = (req, res, next) => {
-  const { name, email, birthday, phone, city } = req.user;
-  const userData = { name, email, birthday, phone, city };
+  const { _id: userId, name, email, birthday, phone, city } = req.user;
+  const userData = { userId, name, email, birthday, phone, city };
   res.json(200, userData);
 };
 
