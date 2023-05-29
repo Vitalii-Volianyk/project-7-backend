@@ -31,10 +31,12 @@ const addPet = async (req, res) => {
 const deletePetsId = async (req, res) => {
   const { petId } = req.params;
   const result = await Pet.findByIdAndRemove(petId);
+
   if (!result) {
     throw HttpError(404, "Not found");
   }
-  res.json({ message: "contact deleted" });
+
+  res.json(200, { message: "contact deleted" });
 };
 
 module.exports = {
