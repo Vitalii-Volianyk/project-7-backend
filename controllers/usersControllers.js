@@ -31,6 +31,7 @@ const register = async (req, res, next) => {
 
   res.json(201, {
     message: "success",
+    userId: newUser._id,
     email: updateUser.email,
     token,
   });
@@ -65,6 +66,7 @@ const login = async (req, res, next) => {
   if (updateUser.name) {
     return res.status(201).json({
       message: "success",
+      userId: user._id,
       name: updateUser.name,
       token,
     });
@@ -72,6 +74,7 @@ const login = async (req, res, next) => {
 
   res.status(201).json({
     message: "success",
+    userId: user._id,
     email: updateUser.email,
     token,
   });
