@@ -4,11 +4,14 @@ const { controlWrapper } = require("../helpers/controlWrapper");
 const { HttpError } = require("../helpers/HttpError");
 
 const getPet = async (req, res) => {
-  const findPet = await Pet.find().select([
+  const { _id: owner } = req.user;
+
+  const findPet = await Pet.find({ owner }).select([
     "name",
     "birthday",
     "breed",
     "comments",
+    "avatarURL",
   ]);
 
   res.json(200, findPet);
