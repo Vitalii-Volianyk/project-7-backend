@@ -25,7 +25,7 @@ router.delete("/:petId", isValidId, authentificate, deletePetsId);
 router.post(
   "/",
   authentificate,
-  validateBody(schemas.addSchema),
+  //validateBody(schemas.addSchema),
   uploadCloud.single("image"),
   addPet
 );
