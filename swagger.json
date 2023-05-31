@@ -85,6 +85,13 @@
           "401": {
             "description": "Not authorized",
             "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -132,6 +139,13 @@
           "401": {
             "description": "Not authorized",
             "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -184,6 +198,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       },
@@ -224,6 +241,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -263,6 +283,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -310,6 +333,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -367,6 +393,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -421,6 +450,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -459,6 +491,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -497,6 +532,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -545,6 +583,9 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -581,9 +622,15 @@
             "description": "Validation Error Message",
             "content": {}
           },
+          "404": {
+            "description": "Not found"
+          },
           "409": {
             "description": "Email in use",
             "content": {}
+          },
+          "500": {
+            "description": "Iternal server error"
           },
           "default": {
             "description": "successful operation"
@@ -628,6 +675,12 @@
           "401": {
             "description": "Email or password is wrong",
             "content": {}
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -661,6 +714,12 @@
           },
           "401": {
             "description": "Not authorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -703,6 +762,115 @@
           },
           "401": {
             "description": "Not authorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Iternal server error"
+          }
+        }
+      }
+    },
+    "/users/data": {
+      "patch": {
+        "tags": ["user"],
+        "summary": "Add or change data user",
+        "description": "",
+        "operationId": "",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "description": "Login object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDataUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDataUpdate"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Iternal server error"
+          }
+        }
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["user"],
+        "summary": "Add or change user avatar",
+        "description": "",
+        "operationId": "",
+        "security": [{ "Bearer": [] }],
+        "consumes": "multipart/form-data",
+        "parameters": [
+          {
+            "name": "baerer token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "type": "file",
+            "description": "The file to uppload"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAvatarUpdate"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error Message",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -767,6 +935,9 @@
           },
           "404": {
             "description": "User not found"
+          },
+          "500": {
+            "description": "Iternal server error"
           }
         }
       }
@@ -792,6 +963,21 @@
               "type": "string"
             },
             "sex": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "UserAvatarUpdate": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "required": "true"
+            },
+            "avatarUrl": {
               "type": "string"
             }
           }
@@ -962,6 +1148,27 @@
             "example": "john@email.com"
           },
           "token": {
+            "type": "string"
+          }
+        }
+      },
+      "UserDataUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@email.com"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "city": {
             "type": "string"
           }
         }
