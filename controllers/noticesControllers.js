@@ -45,7 +45,7 @@ const getByIdController = async (req, res, next) => {
     return res.json(200, findNotice);
   }
 
-  const { email, phone } = findUser;
+  const { email: ownerEmail, phone: ownerPhone } = findUser;
 
   const result = {
     category,
@@ -54,8 +54,8 @@ const getByIdController = async (req, res, next) => {
     birthday,
     sex,
     breed,
-    email,
-    phone,
+    ownerEmail,
+    ownerPhone,
   };
 
   res.json(200, result);
@@ -138,7 +138,7 @@ const addNoticeController = async (req, res, next) => {
     : { owner, ...noticeData };
 
   const newNotice = await Notices.create(data);
-  res.json(201, newNotice);
+  res.status(200).json(newNotice);
 };
 
 const getMyAdsController = async (req, res, next) => {
